@@ -1,5 +1,7 @@
-class Game {
-    constructor() {
+
+export class Game {
+    constructor(gameData) {
+        this.gameData = gameData;
         this.keywords = [];
         this.currentKeywordIndex = 0;
         this.score = 0;
@@ -22,15 +24,15 @@ class Game {
         if (!canvas) return;
 
         this.wheelSegments = [
-            "+10", "+20", "+30", 
+            "+10", "+20", "+30",
             "CƯỚP 20 ĐIỂM",
-            "-10", "-20", 
+            "-10", "-20",
             "CƯỚP 30 ĐIỂM",
             "-30",
             "TRÁO ĐIỂM",
             "+40",
             "MIỄN BỊ TRỪ",
-            "+10", "+20", 
+            "+10", "+20",
             "TÔI CÓ KHIÊN",
             "+30",
             "+10", "+20",
@@ -275,15 +277,15 @@ class Game {
     }
 
     loadGame() {
-        if (typeof gameData === 'undefined' || !gameData || !gameData.data) {
-            console.error('Game data not loaded or gameData is undefined');
+        if (!this.gameData || !this.gameData.data) {
+            console.error("❌ Game data not loaded", this.gameData);
             this.keywords = [];
             return;
         }
 
-        this.keywords = gameData.data;
+        this.keywords = this.gameData.data;
 
-        // Initialize revealed letters and star indices
+        // Initialize revealed letters and star indices for each keyword
         this.keywords.forEach((keyword, idx) => {
             if (!this.revealedLetters[idx]) {
                 this.revealedLetters[idx] = new Array(keyword.keyword.length).fill(false);
@@ -592,9 +594,3 @@ class Game {
         }
     }
 }
-
-let game;
-// Initialize game when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    game = new Game();
-});

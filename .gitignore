@@ -1,0 +1,17 @@
+# Dữ liệu thô và công cụ mã hóa (Bảo mật)
+data/data.raw.json
+tools/encode.js
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
