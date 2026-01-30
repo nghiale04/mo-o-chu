@@ -76,7 +76,7 @@ export class Game {
             ctx.rotate(angle + arcSize / 2);
             ctx.textAlign = "right";
             ctx.fillStyle = "#fff";
-            ctx.font = "bold 18px Poppins";
+            ctx.font = "bold 18px 'Be Vietnam Pro'";
             ctx.fillText(segment, radius - 20, 10);
             ctx.restore();
         });
