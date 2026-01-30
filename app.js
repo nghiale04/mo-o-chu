@@ -163,16 +163,26 @@ export class Game {
 
         container.innerHTML = '';
         sortedTeams.forEach((team, i) => {
-            const isTop1 = team.score === maxScore && maxScore > 0;
+            const hasScore = team.score > 0;
+            const isTop1 = i === 0 && hasScore;
+            const isTop2 = i === 1 && hasScore;
+            const isTop3 = i === 2 && hasScore;
+
             const card = document.createElement('div');
-            card.className = `team-card ${isTop1 ? 'top-team' : ''}`;
+            card.className = `team-card ${isTop1 ? 'top-team' : ''} ${isTop2 ? 'rank2-team' : ''} ${isTop3 ? 'rank3-team' : ''}`;
             card.draggable = true;
             card.dataset.index = team.originalIndex;
+
+            let badgeHtml = '';
+            if (isTop1) badgeHtml = '<span class="top-badge">👑 TOP 1</span>';
+            else if (isTop2) badgeHtml = '<span class="top-badge bg-silver">🥈 TOP 2</span>';
+            else if (isTop3) badgeHtml = '<span class="top-badge bg-bronze">🥉 TOP 3</span>';
+
             card.innerHTML = `
                 <div class="team-header pointer-events-none">
                     <div class="flex items-center gap-2">
                         <span class="rank-badge">${i + 1}</span>
-                        ${isTop1 ? '<span class="top-badge">👑 TOP 1</span>' : ''}
+                        ${badgeHtml}
                         <span class="team-name">${team.name}</span>
                     </div>
                     <span class="team-score" id="score-${team.originalIndex}">${team.score}</span>

@@ -851,22 +851,41 @@
             background: rgba(241, 196, 15, 0.4);
         }
 
-        .top-team {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05)) !important;
-            border: 1px solid rgba(255, 215, 0, 0.5) !important;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        .top-team,
+        .rank2-team,
+        .rank3-team {
             position: relative;
             overflow: hidden;
         }
 
-        .top-team::after {
+        .top-team {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05)) !important;
+            border: 1px solid rgba(255, 215, 0, 0.8) !important;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .rank2-team {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.05)) !important;
+            border: 1px solid rgba(192, 192, 192, 0.8) !important;
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+        }
+
+        .rank3-team {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.05)) !important;
+            border: 1px solid rgba(205, 127, 50, 0.8) !important;
+            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+        }
+
+        .top-team::after,
+        .rank2-team::after,
+        .rank3-team::after {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
@@ -890,6 +909,17 @@
             font-weight: 800;
             text-transform: uppercase;
         }
+
+        .top-badge.bg-silver {
+            background: #c0c0c0;
+            color: #1a1a2e;
+        }
+
+        .top-badge.bg-bronze {
+            background: #cd7f32;
+            color: #ffffff;
+        }
+
 
         .rank-badge {
             background: rgba(255, 255, 255, 0.1);
@@ -1111,10 +1141,10 @@
                     <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
                         <li>Trả lời đúng: Mở ô chữ và được quay vòng quay.</li>
                         <li>Ô chữ may mắn <span class="text-pink-500">⭐</span>Sẽ được quyết định <span
-                                class="text-green-500 font-bold">x2 số điểm nếu trả lời đúng  </span> và<span
+                                class="text-green-500 font-bold">x2 số điểm nếu trả lời đúng </span> và<span
                                 class="text-red-500 font-bold"> -30 điểm nếu trả lời sai</li>
-                        <li>Nút <span class="text-yellow-500">✨ Giải mã</span>: Dùng khi nhóm muốn đoán toàn bộ từ khóa và được <span
-                                class="text-green-500 font-bold">+30 điểm</span>.
+                        <li>Nút <span class="text-yellow-500">✨ Giải mã</span>: Dùng khi nhóm muốn đoán toàn bộ từ khóa
+                            và được <span class="text-green-500 font-bold">+30 điểm</span>.
                         </li>
                     </ul>
                 </section>
