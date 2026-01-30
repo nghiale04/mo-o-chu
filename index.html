@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiếc nón kỳ diệu: Tư tưởng Hồ Chí Minh về Đại đoàn kết</title>
+    <meta name="description" content="Game mở ô chữ về tư tưởng Hồ Chí Minh - Đại đoàn kết dân tộc">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-red: #e63946;
+            --accent-gold: #f1c40f;
+            --accent-light: #ffd700;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Gradient animated background */
+        @keyframes bgShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(241, 196, 15, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title-main {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #e63946 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .subsubtitle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-box:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .progress-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #e63946 0%, #a4161a 100%);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-clear {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-clear:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .keywords-container {
+            display: grid;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .keyword-card {
+            animation: cardAppear 0.6s ease-out backwards;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .keyword-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .tile {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            min-height: 60px;
+        }
+
+        .tile.locked {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            color: rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .tile.locked:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+        }
+
+        .tile.revealed {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a2e;
+            border: 2px solid #ffc700;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            animation: revealPulse 0.5s ease-out;
+        }
+
+        @keyframes revealPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .tile.star-tile {
+            position: relative;
+            background: linear-gradient(135deg, #ff0080 0%, #ff8c00 100%) !important;
+            color: white !important;
+            border-color: #ffd700 !important;
+        }
+
+        .star-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+            animation: starBounce 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+            z-index: 5;
+        }
+
+        @keyframes starBounce {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-8px) scale(1.3) rotate(15deg);
+            }
+        }
+
+        .modal-content.star-modal {
+            border: 3px solid #ff0080;
+            box-shadow: 0 0 40px rgba(255, 0, 128, 0.4);
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b33 100%);
+        }
+
+        .star-modal .modal-title {
+            color: #ff8c00;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+            font-weight: 800;
+        }
+
+        .tile.space {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .solve-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solve-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .answer-display {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .answer-display .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .answer-display .value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .animate-bounce-short {
+            animation: bounceShort 1s ease-in-out infinite;
+        }
+
+        @keyframes bounceShort {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: backdropFadeIn 0.3s ease-out;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        @keyframes backdropFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #302b63 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlideUp 0.4s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .question-progress {
+            font-size: 0.85rem;
+            color: rgba(255, 215, 0, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateX(4px);
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: #059669;
+            color: white;
+            animation: correctPulse 0.5s ease;
+        }
+
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-color: #dc2626;
+            color: white;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .feedback {
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: none;
+            line-height: 1.6;
+            animation: feedbackShow 0.3s ease-out;
+        }
+
+        .feedback.show {
+            display: block !important;
+        }
+
+        @keyframes feedbackShow {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.success {
+            background: rgba(16, 185, 129, 0.25);
+            color: #10b981;
+            border: 2px solid rgba(16, 185, 129, 0.5);
+        }
+
+        .feedback.error {
+            background: rgba(239, 68, 68, 0.25);
+            color: #ef4444;
+            border: 2px solid rgba(239, 68, 68, 0.5);
+        }
+
+        /* Scrollbar styling */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.4);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 215, 0, 0.6);
+        }
+
+        /* Lucky Wheel & Scoreboard Sidebars */
+        .sidebar {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            width: 320px;
+        }
+
+        .sidebar-left {
+            left: 20px;
+        }
+
+        .sidebar-right {
+            right: 20px;
+        }
+
+        /* Wheel Styles */
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+
+        #wheelCanvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            transition: transform 5s cubic-bezier(0.1, 0, 0, 1);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #e63946;
+            clip-path: polygon(50% 100%, 0 0, 100% 0);
+            z-index: 10;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .spin-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ffd700, #f1c40f);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .spin-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(241, 196, 15, 0.6);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: wait;
+        }
+
+        /* Scoreboard Styles */
+        .scoreboard {
+            display: grid;
+            gap: 12px;
+            padding: 1.5rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .team-card:active {
+            cursor: grabbing;
+        }
+
+        .team-card.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+            border: 2px dashed #ffd700 !important;
+        }
+
+        .team-card.drag-over {
+            border: 2px solid #10b981 !important;
+            transform: scale(1.02);
+            background: rgba(16, 185, 129, 0.1) !important;
+        }
+
+        .team-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .team-score {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffd700;
+        }
+
+        .score-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .score-btn {
+            flex: 1;
+            padding: 5px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn-minus {
+            background: rgba(230, 57, 70, 0.2);
+            color: #e63946;
+        }
+
+        .btn-plus {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .btn-minus:hover {
+            background: rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-plus:hover {
+            background: rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-swap {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+
+        .btn-swap:hover {
+            background: rgba(241, 196, 15, 0.4);
+        }
+
+        .top-team {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05)) !important;
+            border: 1px solid rgba(255, 215, 0, 0.5) !important;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-team::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        .top-badge {
+            background: #ffd700;
+            color: #1a1a2e;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .rank-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1400px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                top: 0;
+                transform: none;
+                left: 0;
+                right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .sidebar-right {
+                margin-top: 2rem;
+            }
+
+            .wheel-container {
+                margin: 0 auto 2rem;
+            }
+        }
+
+        /* Wheel Modal Specifics */
+        .wheel-modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #ffd700;
+            text-align: center;
+            padding: 3rem !important;
+        }
+
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .result-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebars -->
+    <div class="sidebar sidebar-left">
+        <div class="glass-panel p-4">
+            <h3 class="text-center font-bold text-yellow-400 mb-4 uppercase tracking-widest text-sm">Vòng quay may mắn
+            </h3>
+            <div class="wheel-container pr-3">
+                <div class="wheel-pointer"></div>
+                <canvas id="wheelCanvas" width="500" height="500"></canvas>
+            </div>
+            <button id="spinBtn" class="spin-btn">QUAY NGAY</button>
+            <div id="wheelResult" class="mt-4 text-center font-bold text-green-400 min-h-[1.5rem]"></div>
+        </div>
+    </div>
+
+    <div class="sidebar sidebar-right">
+        <div class="glass-panel p-4">
+            <h3 class="text-center font-bold text-yellow-400 mb-4 uppercase tracking-widest text-sm">Bảng điểm các nhóm
+            </h3>
+            <div class="scoreboard" id="teamScoreboard">
+                <!-- 6 teams will be rendered here -->
+            </div>
+        </div>
+    </div>
+    <div class="container-wrapper">
+        <div class="max-w-5xl mx-auto">
+            <!-- Header -->
+            <div class="title-section">
+                <h1 class="title-main">🎩 Lật ô chữ</h1>
+                <p class="subtitle">Tư tưởng Hồ Chí Minh về Đại đoàn kết</p>
+                <p class="subsubtitle">Trả lời câu hỏi để mở từng phần của từ khóa</p>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="glass-panel p-6 md:p-8 mb-8">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" id="score">0</div>
+                        <div class="stat-label">Điểm số</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="progress">0/0</div>
+                        <div class="stat-label">Câu hoàn thành</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="segments">0/0</div>
+                        <div class="stat-label">Ô chữ đã mở</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-bar-container">
+                        <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button id="guideBtn" class="btn btn-clear">
+                        📖 Hướng dẫn
+                    </button>
+                    <button id="resetBtn" class="btn btn-reset">
+                        🔄 Chơi lại
+                    </button>
+                    <button id="clearSaveBtn" class="btn btn-clear">
+                        🗑️ Xóa lưu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Grid -->
+            <div id="gameGrid" class="keywords-container">
+                <!-- Keywords will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Câu hỏi</h2>
+                <button id="closeModal" class="close-btn">×</button>
+            </div>
+
+            <div class="mb-6">
+                <p class="question-text" id="questionText"></p>
+                <p class="question-progress" id="questionProgress"></p>
+            </div>
+
+            <div id="optionsContainer" class="options-container">
+                <!-- Options will be rendered here -->
+            </div>
+
+            <div id="feedback" class="feedback">
+                <!-- Feedback message -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wheel Result Modal -->
+    <div id="wheelModal" class="modal-backdrop">
+        <div class="modal-content wheel-modal-content">
+            <div class="modal-header justify-end">
+                <button onclick="document.getElementById('wheelModal').classList.remove('active')"
+                    class="close-btn">×</button>
+            </div>
+            <div class="py-4">
+                <span class="result-icon">🎉</span>
+                <span class="text-white text-xl uppercase tracking-widest mb-2 block">Kết quả lượt quay</span>
+                <span id="wheelModalResult" class="result-text"></span>
+                <button onclick="document.getElementById('wheelModal').classList.remove('active')"
+                    class="spin-btn mt-4">XÁC NHẬN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="modal-backdrop">
+        <div class="modal-content max-w-2xl">
+            <div class="modal-header">
+                <h2 class="modal-title">📖 Hướng dẫn cách chơi</h2>
+                <button onclick="document.getElementById('guideModal').classList.remove('active')"
+                    class="close-btn">×</button>
+            </div>
+            <div class="guide-body space-y-6 text-sm md:text-base">
+                <section class="guide-item">
+                    <h3 class="font-bold text-yellow-400 mb-2 flex items-center gap-2">
+                        🎡 Vòng quay may mắn
+                    </h3>
+                    <p class="text-gray-300">Nhóm thực hiện quay để xác định điểm thưởng hoặc hiệu ứng cho lượt chơi.
+                        Các ô đặc biệt bao gồm:</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
+                        <li><span class="text-yellow-500">Tráo điểm:</span> Cho phép tráo điểm với nhóm khác.</li>
+                        <li><span class="text-red-500">Cướp điểm:</span> Trừ điểm nhóm khác cộng vào nhóm mình.</li>
+                        <li><span class="text-blue-500">Quay thêm:</span> Được thêm lượt quay.</li>
+                    </ul>
+                </section>
+
+                <section class="guide-item">
+                    <h3 class="font-bold text-yellow-400 mb-2 flex items-center gap-2">
+                        🧩 Giải mã ô chữ
+                    </h3>
+                    <p class="text-gray-300">Nhấn vào các ô có dấu <span class="text-yellow-500 font-bold">"?"</span> để
+                        mở câu hỏi:</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
+                        <li>Trả lời đúng: Mở ô chữ và được quay vòng quay.</li>
+                        <li>Ô chữ may mắn <span class="text-pink-500">⭐</span>Sẽ được quyết định <span
+                                class="text-green-500 font-bold">x2 số điểm nếu trả lời đúng  </span> và<span
+                                class="text-red-500 font-bold"> -30 điểm nếu trả lời sai</li>
+                        <li>Nút <span class="text-yellow-500">✨ Giải mã</span>: Dùng khi nhóm muốn đoán toàn bộ từ khóa và được <span
+                                class="text-green-500 font-bold">+30 điểm</span>.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="guide-item">
+                    <h3 class="font-bold text-yellow-400 mb-2 flex items-center gap-2">
+                        📊 Bảng điểm & Hạng
+                    </h3>
+                    <p class="text-gray-300">Bảng bên phải cập nhật điểm số và thứ hạng:</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
+                        <li><span class="text-yellow-500 font-bold">Kéo & Thả:</span> Kéo thẻ 1 nhóm thả lên nhóm khác
+                            để tráo điểm.</li>
+                        <li><span class="text-yellow-500 font-bold">Top 1:</span> Nhóm dẫn đầu sẽ có vương miện và hiệu
+                            ứng lấp lánh.</li>
+                    </ul>
+                </section>
+            </div>
+            <button onclick="document.getElementById('guideModal').classList.remove('active')" class="spin-btn mt-6">ĐÃ
+                HIỂU</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
