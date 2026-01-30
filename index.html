@@ -990,32 +990,63 @@
             }
         }
 
-        /* Password Gate Styles */
-        #passwordGate {
-            position: fixed;
+        /* Updated Password Gate for Question Area */
+        .question-lock-overlay {
+            position: absolute;
             inset: 0;
-            z-index: 9999;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            z-index: 50;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 2px dashed rgba(255, 215, 0, 0.2);
+            transition: all 0.5s ease;
         }
 
-        .login-box {
-            width: 90%;
-            max-width: 400px;
+        .lock-box {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
             padding: 3rem;
+            border-radius: 25px;
             text-align: center;
-            animation: modalSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
         }
 
-        .login-title {
-            font-size: 2rem;
-            font-weight: 800;
+        .unlock-init-btn {
+            background: linear-gradient(135deg, #1a1a2e 0%, #302b63 100%);
+            border: 2px solid #ffd700;
             color: #ffd700;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
+            padding: 1.25rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .unlock-init-btn:hover {
+            transform: scale(1.1);
+            background: #ffd700;
+            color: #1a1a2e;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .unlock-init-btn i {
+            font-size: 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .password-input {
@@ -1027,42 +1058,46 @@
             color: white;
             font-size: 1.1rem;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 5px;
         }
 
         .password-input:focus {
-            border-color: #f1c40f;
             background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.2);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
         }
 
-        #gameContent {
-            display: none;
+        .password-input::placeholder {
+            letter-spacing: normal;
+            color: rgba(255, 255, 255, 0.3);
+            font-style: italic;
+            font-size: 0.9rem;
         }
 
-        .shake {
-            animation: shake 0.5s ease-in-out;
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Password Gate -->
-    <div id="passwordGate">
-        <div class="glass-panel login-box">
-            <div class="login-title">🔐 TRUY CẬP</div>
-            <p class="text-gray-400 mb-6 text-sm">Vui lòng nhập mật khẩu để vào trò chơi</p>
-            <input type="password" id="passwordInput" class="password-input" placeholder="Nhập mật khẩu..."
-                autocomplete="off">
-            <button onclick="checkPassword()" class="spin-btn">VÀO TRÒ CHƠI</button>
-            <p id="passwordError" class="text-red-500 mt-4 text-sm font-semibold opacity-0 transition-opacity">Mật khẩu
-                không chính xác!</p>
-        </div>
-    </div>
-
-    <!-- Main Game Content -->
+    <!-- Main Game Content (Always Visible now) -->
     <div id="gameContent">
         <!-- Sidebars -->
         <div class="sidebar sidebar-left">
@@ -1098,51 +1133,76 @@
                     <p class="subsubtitle">Trả lời câu hỏi để mở từng phần của từ khóa</p>
                 </div>
 
-                <!-- Stats Panel -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <div class="stats-grid" id="top3Container">
-                        <div class="stat-box top-rank-1">
-                            <div class="rank-icon">🥇</div>
-                            <div class="stat-number" id="top1-score">0</div>
-                            <div class="stat-label" id="top1-name">Đang cập nhật...</div>
-                        </div>
-                        <div class="stat-box top-rank-2">
-                            <div class="rank-icon">🥈</div>
-                            <div class="stat-number" id="top2-score">0</div>
-                            <div class="stat-label" id="top2-name">-</div>
-                        </div>
-                        <div class="stat-box top-rank-3">
-                            <div class="rank-icon">🥉</div>
-                            <div class="stat-number" id="top3-score">0</div>
-                            <div class="stat-label" id="top3-name">-</div>
+                <!-- Protected Game Area -->
+                <div class="main-game-column">
+                    <!-- The Lock -->
+                    <div id="passwordGate" class="question-lock-overlay">
+                        <!-- Initial Button -->
+                        <button id="unlockInitBtn" onclick="showPasswordInput()" class="unlock-init-btn">
+                            <span>🔓 Mở khóa câu hỏi</span>
+                        </button>
+
+                        <!-- The Lock Box (Hidden Initially) -->
+                        <div id="passwordEntryBox" class="glass-panel lock-box hidden">
+                            <div class="text-4xl mb-4">🔒</div>
+                            <h2 class="text-xl font-bold text-yellow-400 mb-2 uppercase tracking-widest">Xác thực quyền
+                                hạn</h2>
+                            <p class="text-gray-400 mb-6 text-sm">Vui lòng nhập mật khẩu quản trị viên</p>
+                            <input type="password" id="passwordInput" class="password-input" placeholder="Mật khẩu..."
+                                autocomplete="off">
+                            <button onclick="checkPassword()" class="spin-btn">XÁC NHẬN</button>
+                            <p id="passwordError"
+                                class="text-red-500 mt-4 text-sm font-semibold opacity-0 transition-opacity">Mật khẩu
+                                không chính xác!</p>
                         </div>
                     </div>
 
-                    <!-- Progress Bar -->
-                    <div class="progress-section">
-                        <div class="progress-bar-container">
-                            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                    <!-- Stats Panel -->
+                    <div class="glass-panel p-6 md:p-8 mb-8">
+                        <div class="stats-grid" id="top3Container">
+                            <div class="stat-box top-rank-1">
+                                <div class="rank-icon">🥇</div>
+                                <div class="stat-number" id="top1-score">0</div>
+                                <div class="stat-label" id="top1-name">Đang cập nhật...</div>
+                            </div>
+                            <div class="stat-box top-rank-2">
+                                <div class="rank-icon">🥈</div>
+                                <div class="stat-number" id="top2-score">0</div>
+                                <div class="stat-label" id="top2-name">-</div>
+                            </div>
+                            <div class="stat-box top-rank-3">
+                                <div class="rank-icon">🥉</div>
+                                <div class="stat-number" id="top3-score">0</div>
+                                <div class="stat-label" id="top3-name">-</div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-section">
+                            <div class="progress-bar-container">
+                                <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="button-group">
+                            <button id="guideBtn" class="btn btn-clear">
+                                📖 Hướng dẫn
+                            </button>
+                            <button id="resetBtn" class="btn btn-reset">
+                                🔄 Chơi lại
+                            </button>
+                            <button id="clearSaveBtn" class="btn btn-clear">
+                                🗑️ Xóa lưu
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="button-group">
-                        <button id="guideBtn" class="btn btn-clear">
-                            📖 Hướng dẫn
-                        </button>
-                        <button id="resetBtn" class="btn btn-reset">
-                            🔄 Chơi lại
-                        </button>
-                        <button id="clearSaveBtn" class="btn btn-clear">
-                            🗑️ Xóa lưu
-                        </button>
+                    <!-- Game Grid -->
+                    <div id="gameGrid" class="keywords-container">
+                        <!-- Keywords will be rendered here -->
                     </div>
-                </div>
-
-                <!-- Game Grid -->
-                <div id="gameGrid" class="keywords-container">
-                    <!-- Keywords will be rendered here -->
-                </div>
+                </div> <!-- End main-game-column -->
             </div>
         </div>
 
@@ -1203,8 +1263,10 @@
                             chơi.
                             Các ô đặc biệt bao gồm:</p>
                         <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
-                            <li><span class="text-yellow-500">Tráo điểm:</span> Cho phép tráo điểm với nhóm khác.</li>
-                            <li><span class="text-red-500">Cướp điểm:</span> Trừ điểm nhóm khác cộng vào nhóm mình.</li>
+                            <li><span class="text-yellow-500">Tráo điểm:</span> Cho phép tráo điểm với nhóm khác.
+                            </li>
+                            <li><span class="text-red-500">Cướp điểm:</span> Trừ điểm nhóm khác cộng vào nhóm mình.
+                            </li>
                             <li><span class="text-blue-500">Quay thêm:</span> Được thêm lượt quay.</li>
                         </ul>
                     </section>
@@ -1221,7 +1283,8 @@
                             <li>Ô chữ may mắn <span class="text-pink-500">⭐</span>Sẽ được quyết định <span
                                     class="text-green-500 font-bold">x2 số điểm nếu trả lời đúng </span> và<span
                                     class="text-red-500 font-bold"> -30 điểm nếu trả lời sai</li>
-                            <li>Nút <span class="text-yellow-500">✨ Giải mã</span>: Dùng khi nhóm muốn đoán toàn bộ từ
+                            <li>Nút <span class="text-yellow-500">✨ Giải mã</span>: Dùng khi nhóm muốn đoán toàn bộ
+                                từ
                                 khóa
                                 và được <span class="text-green-500 font-bold">+30 điểm</span>.
                             </li>
@@ -1234,10 +1297,12 @@
                         </h3>
                         <p class="text-gray-300">Bảng bên phải cập nhật điểm số và thứ hạng:</p>
                         <ul class="list-disc list-inside ml-4 text-gray-400 mt-1">
-                            <li><span class="text-yellow-500 font-bold">Kéo & Thả:</span> Kéo thẻ 1 nhóm thả lên nhóm
+                            <li><span class="text-yellow-500 font-bold">Kéo & Thả:</span> Kéo thẻ 1 nhóm thả lên
+                                nhóm
                                 khác
                                 để tráo điểm.</li>
-                            <li><span class="text-yellow-500 font-bold">Top 1:</span> Nhóm dẫn đầu sẽ có vương miện và
+                            <li><span class="text-yellow-500 font-bold">Top 1:</span> Nhóm dẫn đầu sẽ có vương miện
+                                và
                                 hiệu
                                 ứng lấp lánh.</li>
                         </ul>
@@ -1253,22 +1318,29 @@
     <script type="module" src="./main.js"></script>
 
     <script>
+        function showPasswordInput() {
+            document.getElementById('unlockInitBtn').classList.add('hidden');
+            document.getElementById('passwordEntryBox').classList.remove('hidden');
+            document.getElementById('passwordInput').focus();
+        }
+
         function checkPassword() {
             const input = document.getElementById('passwordInput');
             const error = document.getElementById('passwordError');
             const gate = document.getElementById('passwordGate');
-            const content = document.getElementById('gameContent');
-            const loginBox = document.querySelector('.login-box');
+            const loginBox = document.querySelector('.lock-box');
 
             if (input.value === 'nhom3provip') {
-                gate.style.display = 'none';
-                content.style.display = 'block';
+                gate.style.opacity = '0';
+                setTimeout(() => {
+                    gate.style.display = 'none';
+                }, 500);
             } else {
                 error.classList.remove('opacity-0');
-                loginBox.classList.add('shake');
+                if (loginBox) loginBox.classList.add('shake');
                 input.value = '';
                 setTimeout(() => {
-                    loginBox.classList.remove('shake');
+                    if (loginBox) loginBox.classList.remove('shake');
                 }, 500);
             }
         }

@@ -226,6 +226,17 @@ export class Game {
 
             container.appendChild(card);
         });
+
+        // Update central Top 3 panel
+        for (let i = 1; i <= 3; i++) {
+            const team = sortedTeams[i - 1];
+            if (team) {
+                const scoreEl = document.getElementById(`top${i}-score`);
+                const nameEl = document.getElementById(`top${i}-name`);
+                if (scoreEl) scoreEl.textContent = team.score;
+                if (nameEl) nameEl.textContent = team.name;
+            }
+        }
     }
 
     promptSwap(index1) {
@@ -570,14 +581,24 @@ export class Game {
             return this.revealedLetters[idx].every(r => r);
         }).length;
 
-        document.getElementById('score').textContent = this.score;
-        document.getElementById('progress').textContent = `${completedKeywords}/${this.keywords.length}`;
-        document.getElementById('segments').textContent = `${totalRevealedLetters}/${totalLetters}`;
+        // Old stat elements were removed for the Top 3 panel
+        // If they ever come back, add check: document.getElementById('score')?.textContent = ...
 
         if (totalLetters > 0) {
             const progressPercent = (totalRevealedLetters / totalLetters) * 100;
-            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) progressBar.style.width = `${progressPercent}%`;
         }
+    }
+
+    unlockAll() {
+        this.keywords.forEach((keyword, idx) => {
+            this.revealedLetters[idx] = new Array(keyword.keyword.length).fill(true);
+            localStorage.setItem(`solved-${idx}`, 'true');
+        });
+        this.saveGame();
+        this.renderKeywords();
+        this.updateStats();
     }
 
     reset() {
